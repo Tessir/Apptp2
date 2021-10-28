@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TP1</string>
+    <string name="title"> Buenos Dias </string>
+    <string name="cliquez_me">Cliquez moi</string>
+    <string name="c_est_votre_photo_de_photo_de_profil">c\'est votre photo de photo de profil</string>
+</resources>
