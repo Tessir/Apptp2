@@ -20,6 +20,10 @@ class MainActivity : AppCompatActivity() {
 //        clickButton.setOnClickListener {
 //            Toast.makeText(baseContext, "Tu m'as cliqué", Toast.LENGTH_LONG).show()
 //        }
+        computeButton.setOnClickListener {
+            val intent = Intent(baseContext, ComputeActivity::class.java)
+            startActivity(intent)
+        }
         clickButton.setOnClickListener {
             nbClick++
             if (nbClick != 0) {
@@ -28,11 +32,6 @@ class MainActivity : AppCompatActivity() {
             }
             if (nbClick == 5) {
                 clickButton.isEnabled = false
-            }
-
-            computeButton.setOnClickListener {
-                val intent = Intent(baseContext, ComputeActivity::class.java)
-                startActivity(intent)
             }
         }
     }
