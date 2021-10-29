@@ -20,9 +20,11 @@ class ComputeActivity : AppCompatActivity(), TextWatcher {
         nombre2 = findViewById(R.id.field_2)
         resultat = findViewById(R.id.resultat)
         calculbutton = findViewById(R.id.btn_calculer)
+        nombre1.addTextChangedListener(this)
+        nombre2.addTextChangedListener(this)
         calculbutton.setOnClickListener {
-            var resultatcalcul = 0.0
-            resultatcalcul = nombre1.text.toString().toDouble() + nombre2.text.toString().toDouble()
+            val resultatcalcul =
+                nombre1.text.toString().toDouble() + nombre2.text.toString().toDouble()
             resultat.text = resultatcalcul.toString()
         }
     }
@@ -34,8 +36,6 @@ class ComputeActivity : AppCompatActivity(), TextWatcher {
     }
 
     override fun afterTextChanged(s: Editable?) {
-        if (nombre1.text.isEmpty() && nombre2.text.isEmpty()) {
-            calculbutton.isEnabled = false
-        }
+        calculbutton.isEnabled = nombre1.text.isNotBlank() && nombre2.text.isNotBlank()
     }
 }

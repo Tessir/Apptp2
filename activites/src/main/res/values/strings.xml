@@ -3,4 +3,5 @@
     <string name="nombre_1">nombre_1</string>
     <string name="nombre_2">nombre_2</string>
     <string name="calculer">calculer</string>
+    <string name="faire_un_calcul">Faire un calcul</string>
 </resources>
