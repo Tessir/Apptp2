@@ -37,9 +37,8 @@ class AddNeighbourFragment : Fragment(), TextWatcher {
 //            sendform(view)
 //        }
         (activity as? NavigationListener)?.updateTitle(R.string.add_name)
-
         binding.buttonEnregistrer.setOnClickListener {
-            sendform()
+            NeighborRepository.getInstance().addNeighbours(sendform())
             (activity as? NavigationListener)?.showFragment(ListNeighborsFragment())
 
         }
@@ -52,10 +51,11 @@ class AddNeighbourFragment : Fragment(), TextWatcher {
             itemImgage.addTextChangedListener(this@AddNeighbourFragment)
 
         }
+
         return view
     }
 
-    private fun sendform() {
+    private fun sendform(): Neighbor {
         with(binding) {
             val neighborname = textNom.text.toString()
             val neighboravatarUrl = itemImgage.text.toString()
@@ -74,12 +74,13 @@ class AddNeighbourFragment : Fragment(), TextWatcher {
                 false,
                 webSite
             )
-            NeighborRepository.getInstance().addNeighbours(neigbour)
             context?.let {
                 Glide.with(it).load(Uri.parse(neighboravatarUrl)).into(binding.imageView)
             }
 
+            return neigbour
         }
+
 
 //        val neighborname = view.findViewById<TextView>(R.id.text_nom).text.toString()
 //        val neighboravatarUrl = view.findViewById<TextView>(R.id.item_imgage).text.toString()
@@ -159,11 +160,11 @@ class AddNeighbourFragment : Fragment(), TextWatcher {
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
+        checkButton()
     }
 
     override fun afterTextChanged(s: Editable?) {
-        checkButton()
+        context?.let { Glide.with(it).load(sendform().avatarUrl.toString()).into(binding.imageView) }
     }
 
 
