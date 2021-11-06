@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Neighbors</string>
+    <string name="list_name"> Liste des voisins </string>
+    <string name="add_name"> Nouveau voisin </string>
+    <string name="Confirmation_Message">"Voulez-vous supprimer ce voisin "</string>
+    <string name="btn_oui">OUI</string>
+    <string name="btn_non">Non</string>
+    <string name="photoprofil">Photo de profil</string>
+    <string name="supprimer">supprimer</string>
+    <string name="image">Image</string>
+    <string name="text_nom">Nom</string>
+    <string name="text_telephone">Téléphone</string>
+    <string name="text_Webste">Webste</string>
+    <string name="text_adresse">Adresse</string>
+    <string name="text_aproposdemoi">A propos de moi</string>
+    <string name="button_enregistrer">Enregistrer</string>
+    <string name="photo_profil">Photo profil</string>
+    <string name="ajouter_un_nouveau">Ajouter un nouveau voisin</string>
+</resources>
