@@ -93,65 +93,71 @@ class AddNeighbourFragment : Fragment(), TextWatcher {
 
     private fun checkButton() {
         with(binding) {
-            val textNomNotEmpty: Boolean = !textNom.text.isNullOrEmpty()
-            val textAdressNotEmpty: Boolean = !textAdresse.text.isNullOrEmpty()
-            val textTelephoneNotEmpty: Boolean = !textTelephone.text.isNullOrEmpty()
-            val textWebsteNotEmpty: Boolean = !textWebste.text.isNullOrEmpty()
-            val textAproposdemoiNotEmpty: Boolean = !textAproposedemoi.text.isNullOrEmpty()
-            val itemImgageNotEmpty: Boolean = !itemImgage.text.isNullOrEmpty()
 
 
-            val textTelephoneCheck: Boolean = checkPhoneNumber(textTelephone.text)
-            if (!textTelephoneCheck && textTelephoneNotEmpty) {
+            val usecheckName = checkEmpty(textNom.text)
+            val usecheckAdress= checkEmpty(textAdresse.text)
+            val usecheckPhoneNumber = checkPhoneNumber(textTelephone.text)
+            val usecheckAboutme = checkAboutme(textAproposedemoi.text)
+            val usecheckImageUrl= checkUrl(itemImgage.text)
+            val usecheckWebsiteUrl= checkUrl(textWebste.text)
+
+            if (!usecheckName){
+                textNom.error="Champs Obligatoire"
+            }
+            if (!usecheckAdress){
+                textAdresse.error="Champs Obligatoire"
+            }
+
+            if (!usecheckPhoneNumber) {
                 textTelephone.error = "Format 07/06 XX XX XX XX"
             }
 
-            val itemImgageUrlCheck: Boolean = checkUrl(itemImgage.text)
-            if (!itemImgageUrlCheck && itemImgageNotEmpty) {
-                itemImgage.error = "image URL Non Valide"
+            if (!usecheckImageUrl) {
+                itemImgage.error = "Format image No Valid"
             }
 
-            val textWebsteUrlCheck: Boolean = checkUrl(textWebste.text)
-            if (!textWebsteUrlCheck && textWebsteNotEmpty) {
-                textWebste.error = "URL Non Valide"
+            if (!usecheckWebsiteUrl) {
+                textWebste.error = "Format URL No Valid"
             }
 
-            val textAproposdemoi: Boolean = checkAboutme(textAproposedemoi.text)
-            if (!textAproposdemoi){
-                textAproposedemoi.error = "Maximum 30 characteres"
+            if (!usecheckAboutme ) {
+                textAproposedemoi.error = "Maximum 30 characters"
             }
 
             buttonEnregistrer.isEnabled =
-                textNomNotEmpty &&
-                        textAdressNotEmpty &&
-                        textTelephoneNotEmpty &&
-                        textWebsteNotEmpty &&
-                        textAproposdemoiNotEmpty &&
-                        itemImgageNotEmpty &&
-                        textTelephoneCheck &&
-                        itemImgageUrlCheck &&
-                        textWebsteUrlCheck
+                        usecheckImageUrl &&
+                         usecheckName &&
+                        usecheckPhoneNumber &&
+                        usecheckWebsiteUrl &&
+                        usecheckAdress &&
+                        usecheckAboutme
+
         }
     }
 
+    private fun checkEmpty(target: CharSequence?): Boolean {
+        return target.toString().isNotEmpty()
 
-    private fun checkPhoneNumber(target: CharSequence?): Boolean {
+    }
+    private fun checkPhoneNumber(target: CharSequence?) : Boolean{
+
         return (
-                (
-                        (target.toString()).startsWith("07") ||
-                                (target.toString()).startsWith("06")
-                        ) &&
-                        target.toString().length == 10
+                ((target.toString()).startsWith("07") ||
+                (target.toString()).startsWith("06")
+                ) &&
+                target.toString().length == 10
+                && target.toString().isNotEmpty()
                 )
     }
 
     private fun checkAboutme(target: CharSequence?): Boolean {
-        return target.toString().length < 30
+        return (target.toString().length < 30 && target.toString().isNotEmpty())
 
     }
 
     private fun checkUrl(target: CharSequence?): Boolean {
-        return URLUtil.isValidUrl(target.toString())
+        return (URLUtil.isValidUrl(target.toString()) && target.toString().isNotEmpty())
     }
 
 
@@ -160,11 +166,15 @@ class AddNeighbourFragment : Fragment(), TextWatcher {
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        checkButton()
+
     }
 
     override fun afterTextChanged(s: Editable?) {
-        context?.let { Glide.with(it).load(sendform().avatarUrl.toString()).into(binding.imageView) }
+        checkButton()
+        context?.let {
+            Glide.with(it).load(sendform().avatarUrl).into(binding.imageView)
+        }
+
     }
 
 
